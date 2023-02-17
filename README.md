@@ -5,9 +5,9 @@ In the first learning path the software allow the user to generate lottery bills
 ## How does Lotto game work?
 Lotto is a game based on betting numbers between 1 and 90 to be drawn on various "ruote" represented by cities. More info: https://www.sisal.it/lotto/come-si-gioca
 ### To start the program:
-Run the main.py file directly from the command line, no arguments need to be passed:
+Run the lotto_game.py file directly from the command line, no arguments need to be passed:
 ```
-python main.py
+python lotto_game.py
 ```
 Once started, the program initially asks the user to choose how many bills he wants to play and then for each bill he must choose the type of bet, how many numbers he wants to play (the numbers are randomly generated) and the city.
 ## Contents of the "lotto" and "tests" folders

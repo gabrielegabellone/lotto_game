@@ -1,5 +1,3 @@
-from lotto import bill
-
 class BetType():
     """It deals with the types of bets available in the game.
     
@@ -12,7 +10,7 @@ class BetType():
     min_per_type = {"ambata": 2, "ambo": 2, "terno": 3, "quaterna": 4, "cinquina": 5}
 
     @staticmethod
-    def is_a_valid_type(bet: str) -> bool:
+    def is_a_valid_type(bet_type: str) -> bool:
         """Check that a bet-type is available in the game.
         
         :param bet: string containing a type of bet
@@ -20,7 +18,7 @@ class BetType():
         :return: `True` if the bet-type is available, `False` otherwise
         :rtype: bool
         """
-        if bet in BetType.available_bet_type:
+        if bet_type in BetType.available_bet_type:
             return True
         return False
 
@@ -36,26 +34,7 @@ class BetType():
         :rtype: bool
         """
         minimum = BetType.min_per_type[bet_type]
-        maximum = bill.Bill.max_numbers_per_bill
+        maximum = 10
         if minimum <= num <= maximum:
             return True
         return False
-
-    @staticmethod
-    def bet_table() -> str:
-        """Returns a summary table of the bet-types available in the game with the minimum number of numbers to generate for each bet-type
-        
-        :return: a string containing the table
-        :rtype: str
-        """
-        bet_table = ""
-        dashed_line = "+---------------" + "+-----------" * len(BetType.available_bet_type) +  "+\n"
-        bet_table += dashed_line + "|{:^15}".format("Bet Type")
-        for bet in BetType.available_bet_type:
-            bet_table += "|{:^11}".format(bet)
-        bet_table += "|\n{}|{:^15}".format(dashed_line, "play at least")
-        for bet in BetType.available_bet_type:
-            bet_table += "|{:^11}".format(str(BetType.min_per_type[bet]) + " numbers")
-        bet_table += "|\n{}".format(dashed_line)
-        return bet_table
-      

@@ -2,6 +2,7 @@ import random
 
 from lotto.bet_type import BetType
 from lotto.city import City
+from lotto.printer import Printer
 
 class Bill():
     """Represents a lottery bill.
@@ -35,22 +36,22 @@ class Bill():
         self.generated_numbers = Bill.generate_numbers(self)
 
     def choose_bet_type() -> str:
-        """Asks the user to choose the type of bet, returns the bet-type chosen by the user.
+        """Asks the user to enter the type of bet, returns the bet-type chosen by the user.
         
         :return: a string containing the bet-type
         :rtype: str
         """
-        choose = input(">> Choose the type of bet: ").lower().strip()
-        while not BetType.is_a_valid_type(choose):
-            if choose == "help":
-                print(BetType.bet_table())
+        entered_bet_type = input(">> Choose the type of bet: ").lower().strip()
+        while not BetType.is_a_valid_type(entered_bet_type):
+            if entered_bet_type == "help":
+                print(Printer.list_table(BetType.available_bet_type))
             else:
-                print("Error! '{}' is not an allowed type of bet.".format(choose))
-            choose = input(">> Choose a valid bet type (or enter 'help' to see the types of bets available): ").lower().strip()
-        return choose
+                print("Error! '{}' is not an allowed type of bet.".format(entered_bet_type))
+            entered_bet_type = input(">> Choose a valid bet type (or enter 'help' to see the types of bets available): ").lower().strip()
+        return entered_bet_type
 
     def choose_numbers(bet_type) -> int:
-        """Asks the user to choose how many numbers to generate, returns the number chosen by the user.
+        """Asks the user to enter how many numbers to generate, returns the number chosen by the user.
 
         :param bet_type: the bet-type chosen by the user
         :rtype: str
@@ -60,29 +61,29 @@ class Bill():
         is_a_valid_number = False
         while not is_a_valid_number:
             try:
-                numbers = int(input(">> How many numbers you want to generate? "))
-                if BetType.is_a_valid_bet(bet_type, numbers):
+                entered_number = int(input(">> How many numbers you want to generate? "))
+                if BetType.is_a_valid_bet(bet_type, entered_number):
                     is_a_valid_number = True
                 else:
                     print("Error! For an '{}' bet, at least {} numbers must be generated.".format(bet_type, BetType.min_per_type[bet_type]))
             except ValueError:
                 print("Error! Enter a numeric value.")
-        return numbers
+        return entered_number
 
     def choose_city() -> str:
-        """Asks the user to choose which city to play on, returns the city chosen by the user.
+        """Asks the user to enter which city he wants to play on, returns the city chosen by the user.
 
         :return: the city chosen by the user
         :rtype: str
         """
-        choose = input(">> Enter the city: ").capitalize().strip()
-        while not City.is_a_valid_city(choose):
-            if choose.lower() == "help":
-                print(City.city_table())
+        entered_city = input(">> Enter the city: ").capitalize().strip()
+        while not City.is_a_valid_city(entered_city):
+            if entered_city.lower() == "help":
+                print(Printer.list_table(City.cities))
             else:
-                print("Error! '{}' is not an available city.".format(choose))
-            choose = input(">> Enter a valid city (or enter 'help' to see the available cities): ").capitalize().strip()
-        return choose   
+                print("Error! '{}' is not an available city.".format(entered_city))
+            entered_city = input(">> Enter a valid city (or enter 'help' to see the available cities): ").capitalize().strip()
+        return entered_city   
                 
     def generate_numbers(self) -> list:
         """Returns a list of randomly generated numbers.
@@ -96,24 +97,8 @@ class Bill():
         return sorted(list(gen_num))
 
     def __str__(self) -> str:
-        """Returns a string representing a lottery bill.
-        
+        """
         :returns: a string containing a representation of a bill
         :rtype: str
         """
-        dashed_line = "+{:-^30}+\n".format("")
-        title_line = "|{:^30}|\n".format("Lotto Ticket")
-        city_line = "|{:14}{:^16}|\n".format("  CITY       |", self.city)
-        bet_line = "|{:14}{:^16}|\n".format("  BET TYPE   |", self.bet_type)
-        max_num_per_row = 5
-        numbers_line = "|"
-        for n in range(Bill.max_numbers_per_bill):
-            if n == max_num_per_row:
-                numbers_line += "|\n|"
-            if n < len(self.generated_numbers):
-                numbers_line += "{:^6}".format(self.generated_numbers[n])
-            else:
-                numbers_line += "      "
-        numbers_line += "|\n"
-        representation = "{}{}{}{}{}{}{}{}".format(dashed_line, title_line, dashed_line, city_line, bet_line, dashed_line, numbers_line, dashed_line)
-        return representation
+        return Printer.bill_representation(self.bet_type, self.generated_numbers, self.city)

@@ -4,7 +4,8 @@ from lotto.bet_type import BetType
 from lotto.city import City
 from lotto.printer import Printer
 
-class Bill():
+
+class Bill:
     """Represents a lottery bill.
     
     :param max_numbers_per_bill: the maximum amount of random numbers that can be generated for each bill, defaults to 10
@@ -35,6 +36,7 @@ class Bill():
         self.city = city
         self.generated_numbers = Bill.generate_numbers(self)
 
+    @staticmethod
     def choose_bet_type() -> str:
         """Asks the user to enter the type of bet, returns the bet-type chosen by the user.
         
@@ -50,6 +52,7 @@ class Bill():
             entered_bet_type = input(">> Choose a valid bet type (or enter 'help' to see the types of bets available): ").lower().strip()
         return entered_bet_type
 
+    @staticmethod
     def choose_numbers(bet_type) -> int:
         """Asks the user to enter how many numbers to generate, returns the number chosen by the user.
 
@@ -70,6 +73,7 @@ class Bill():
                 print("Error! Enter a numeric value.")
         return entered_number
 
+    @staticmethod
     def choose_city() -> str:
         """Asks the user to enter which city he wants to play on, returns the city chosen by the user.
 

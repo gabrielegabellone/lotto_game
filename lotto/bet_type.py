@@ -1,4 +1,4 @@
-class BetType():
+class BetType:
     """It deals with the types of bets available in the game.
     
     :param available_bet_type: list of types of bets available, defaults to ["ambata", "ambo", "terno", "quaterna", "cinquina"]
@@ -13,8 +13,8 @@ class BetType():
     def is_a_valid_type(bet_type: str) -> bool:
         """Check that a bet-type is available in the game.
         
-        :param bet: string containing a type of bet
-        :type bet: str
+        :param bet_type: string containing a type of bet
+        :type bet_type: str
         :return: `True` if the bet-type is available, `False` otherwise
         :rtype: bool
         """

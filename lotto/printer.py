@@ -1,4 +1,4 @@
-class Printer():
+class Printer:
     """Takes care of the printing operations.
     """
 
@@ -19,8 +19,8 @@ class Printer():
     @staticmethod
     def bill_representation(bet_type: str, numbers: list, city: str):
         """
-        return: a bill represented as an ascii art table
-        rtype: str
+        :return: a bill represented as an ascii art table
+        :rtype: str
         """
         dashed_line = "+{:-^30}+\n".format("")
         title_line = "|{:^30}|\n".format("Lotto Ticket")

@@ -1,5 +1,6 @@
 from lotto.bill import Bill
 
+
 def enter_bill_number() -> int:
     """Allows the user to enter the number of bills.
     
@@ -18,6 +19,7 @@ def enter_bill_number() -> int:
             print("Invalid input! Enter a numeric value.")
     return bill_number
 
+
 def is_valid_input(entered_number: int) -> bool:
     """Check that the input is valid.
     
@@ -29,6 +31,7 @@ def is_valid_input(entered_number: int) -> bool:
     min_number_bills = 1
     max_number_bills = 5    
     return min_number_bills <= entered_number <= max_number_bills or entered_number == 0
+
 
 def start_new_game(bill_number: int) -> None:
     """Starts a new game session, by generating bills.

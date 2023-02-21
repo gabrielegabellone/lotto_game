@@ -1,4 +1,4 @@
-class City():
+class City:
     """It deals with the cities available in the game.
     
     :param cities: list of avaible cities, defaults to ["Bari", "Cagliari", "Firenze", "Genova", "Milano", "Napoli", "Palermo", "Roma", "Torino", "Venezia", "Tutte"]

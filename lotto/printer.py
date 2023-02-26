@@ -39,5 +39,5 @@ class Printer:
                 numbers_line += "      "
         numbers_line += "|\n"
         
-        representation = "{}{}{}{}{}{}{}{}".format(dashed_line, title_line, dashed_line, city_line, bet_line, dashed_line, numbers_line, dashed_line)
+        representation = f"{dashed_line}{title_line}{dashed_line}{city_line}{bet_line}{dashed_line}{numbers_line}{dashed_line}"
         return representation

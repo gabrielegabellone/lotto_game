@@ -1,13 +1,10 @@
 class BetType:
     """It deals with the types of bets available in the game.
     
-    :param available_bet_type: list of types of bets available, defaults to ["ambata", "ambo", "terno", "quaterna", "cinquina"]
-    :type available_bet_type: list 
-    :param min_per_type: indicates for each bet type the minimum number of numbers to be generated, defaults to {"ambata": 2, "ambo": 2, "terno": 3, "quaterna": 4, "cinquina": 5}
-    :type min_per_type: dict
+    :var available_bet_type: dictionary whose keys indicate an available bet-type, while the values indicate the minimum number of numbers that must be generated for that specific type
+    :type available_bet_type: dict
     """
-    available_bet_type = ["ambata", "ambo", "terno", "quaterna", "cinquina"]
-    min_per_type = {"ambata": 2, "ambo": 2, "terno": 3, "quaterna": 4, "cinquina": 5}
+    available_bet_type = {"ambata": 2, "ambo": 2, "terno": 3, "quaterna": 4, "cinquina": 5}
 
     @staticmethod
     def is_a_valid_type(bet_type: str) -> bool:
@@ -18,7 +15,7 @@ class BetType:
         :return: `True` if the bet-type is available, `False` otherwise
         :rtype: bool
         """
-        if bet_type in BetType.available_bet_type:
+        if bet_type in BetType.available_bet_type.keys():
             return True
         return False
 
@@ -33,8 +30,9 @@ class BetType:
         :return: `True` if the bet is valid, `False` otherwise
         :rtype: bool
         """
-        minimum = BetType.min_per_type[bet_type]
-        maximum = 10
-        if minimum <= num <= maximum:
+        min_numbers_to_generate = BetType.available_bet_type[bet_type]
+        max_numbers_to_generate = 10
+
+        if num in range(min_numbers_to_generate, max_numbers_to_generate+1):
             return True
         return False

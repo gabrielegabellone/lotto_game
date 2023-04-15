@@ -41,7 +41,3 @@ class TestBill(unittest.TestCase):
         numbers = new_bill.generated_numbers
         expected = "+------------------------------+\n|         Lotto Ticket         |\n+------------------------------+\n|  CITY       |      Roma      |\n|  BET TYPE   |      ambo      |\n+------------------------------+\n|{:^6}{:^6}                  |\n|                              |\n+------------------------------+\n".format(numbers[0], numbers[1])                  
         self.assertEqual(actual, expected, "Expected a different representation of the bill.")
-
-
-if __name__ == "__main__":
-    unittest.main()

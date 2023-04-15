@@ -27,7 +27,3 @@ class TestBetType(unittest.TestCase):
         for value in value_to_test:
             test_value = BetType.is_a_valid_bet("quaterna", value)
             self.assertFalse(test_value, "Expected the method to return False.")
-
-
-if __name__ == "__main__":
-    unittest.main()

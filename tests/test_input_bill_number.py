@@ -23,7 +23,3 @@ class TestInputBillNumber(unittest.TestCase):
         for value in not_valid_input:
             test_value = InputBillNumber.is_valid_input(value)
             self.assertFalse(test_value, "Expected the method to return False.")
-    
-
-if __name__ == "__main__":
-    unittest.main()

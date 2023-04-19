@@ -3,11 +3,8 @@ class InputBillNumber:
     Manages the input operations and input validation of the number of bills at the start of the game.
 
     :param min_number_bills: the minimum number of bills that can be generated, defaults to 1
-    :type min_number_bills: int
     :param max_number_bills: the maximum number of bills that can be generated, defaults to 5
-    :type max_number_bills: int
     :param input_to_exit: the value to enter to exit the game, defaults to 0
-    :type input_to_exit: int
     """
     min_number_bills = 1
     max_number_bills = 5
@@ -18,7 +15,6 @@ class InputBillNumber:
         """Allows the user to enter the number of bills.
         
         :return: the number of bills chosen by the user
-        :rtype: int
         """
         input_validity = False
 
@@ -39,9 +35,7 @@ class InputBillNumber:
         """Check that the input is valid.
         
         :param entered_number: the number of bills entered by the user
-        :type entered_number: int
         :return: `True` if the number is between 0 and 5, `False` otherwise
-        :rtype: bool
         """
         if entered_number in range(InputBillNumber.min_number_bills, InputBillNumber.max_number_bills+1) or entered_number == InputBillNumber.input_to_exit:
             return True

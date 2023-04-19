@@ -10,19 +10,15 @@ from lotto.printer import Printer
 class Extraction:
     """Manages the lotto extraction phase.
     
-    :var numbers_to_draw_by_city: indicates how many numbers must be drawn for each city, defaults to 5
-    :type numbers_to_draw_by_city: int
+    :param numbers_to_draw_by_city: indicates how many numbers must be drawn for each city, defaults to 5
     """
     numbers_to_draw_by_city = 5
 
     def __init__(self):
         """Constructor method.
         
-        :ivar self.extraction: contains a lotto extraction
-        :type self.extraction: dict
-        :ivar self.date: contains the date on which the extraction was made
-        :type self.date: datetime
-        
+        :param self.extraction: dict that contains a lotto extraction
+        :param self.date: contains the date on which the extraction was made
         """
         self.extraction = Extraction.new_extraction()
         self.date = datetime.now()
@@ -53,9 +49,9 @@ class Extraction:
 def is_a_winning_bill(bill: Bill, extraction: Extraction) -> bool:
     """Compare a bill to an extraction and see if the bill is a winner.
     
-    :param extraction: an object of type Extraction, represents the reference extraction to carry out the check
     :param bill: an object of type Bill, represents the bill that is checked to see if it is successful
-    :return: True if the bill wins, False otherwise
+    :param extraction: an object of type Extraction, represents the reference extraction to carry out the check
+    :return: `True` if the bill wins, `False` otherwise
     """
     extracted_numbers = extraction.extraction[bill.city]
     numbers_to_guess = BetType.available_bet_type[bill.bet_type]

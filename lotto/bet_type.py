@@ -1,8 +1,7 @@
 class BetType:
     """It deals with the types of bets available in the game.
     
-    :var available_bet_type: dictionary whose keys indicate an available bet-type, while the values indicate the minimum number of numbers that must be generated for that specific type
-    :type available_bet_type: dict
+    :param available_bet_type: dict whose keys indicate an available bet-type, while the values indicate the minimum number of numbers that must be generated for that specific type
     """
     available_bet_type = {"ambata": 2, "ambo": 2, "terno": 3, "quaterna": 4, "cinquina": 5}
 
@@ -11,9 +10,7 @@ class BetType:
         """Check that a bet-type is available in the game.
         
         :param bet_type: string containing a type of bet
-        :type bet_type: str
         :return: `True` if the bet-type is available, `False` otherwise
-        :rtype: bool
         """
         if bet_type in BetType.available_bet_type.keys():
             return True
@@ -24,11 +21,8 @@ class BetType:
         """Check that it is possible to generate a bet by comparing the bet-type with the numbers to be generated.
         
         :param bet_type: string containing a type of bet
-        :type bet_type: str
         :param num: number to compare with the bet type
-        :type num: int
         :return: `True` if the bet is valid, `False` otherwise
-        :rtype: bool
         """
         min_numbers_to_generate = BetType.available_bet_type[bet_type]
         max_numbers_to_generate = 10

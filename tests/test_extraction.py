@@ -50,36 +50,36 @@ class Test_Extraction(unittest.TestCase):
 
 
     def test_is_a_winning_bill_return_true(self):
-        new_bill = Bill("ambo", 5, "Roma")
+        new_bill = Bill("ambo", 5, "Roma", 1)
         new_bill.generated_numbers = [7, 9, 10, 26, 53]
         self.assertTrue(is_a_winning_bill(new_bill, self.extraction), "Expected method to return True.")
-        new_bill = Bill("ambata", 3, "Roma")
+        new_bill = Bill("ambata", 3, "Roma", 1)
         new_bill.generated_numbers = [7, 49, 53]
         self.assertTrue(is_a_winning_bill(new_bill, self.extraction), "Expected method to return True.")
-        new_bill = Bill("terno", 5, "Napoli")
+        new_bill = Bill("terno", 5, "Napoli", 1)
         new_bill.generated_numbers = [21, 22, 27, 35, 47]
         self.assertTrue(is_a_winning_bill(new_bill, self.extraction), "Expected method to return True.")
-        new_bill = Bill("quaterna", 7, "Torino")
+        new_bill = Bill("quaterna", 7, "Torino", 1)
         new_bill.generated_numbers = [8, 9, 12, 20, 45, 55, 80]
         self.assertTrue(is_a_winning_bill(new_bill, self.extraction), "Expected method to return True.")
-        new_bill = Bill("cinquina", 10, "Firenze")
+        new_bill = Bill("cinquina", 10, "Firenze", 1)
         new_bill.generated_numbers = [9, 11, 15, 24, 25, 55, 76, 81, 82, 83]
         self.assertTrue(is_a_winning_bill(new_bill, self.extraction), "Expected method to return True.")
 
     def test_is_a_winning_bill_return_false(self):
-        new_bill = Bill("ambo", 5, "Roma")
+        new_bill = Bill("ambo", 5, "Roma", 1)
         new_bill.generated_numbers = [8, 10, 11, 12, 13]
         self.assertFalse(is_a_winning_bill(new_bill, self.extraction), "Expected method to return False.")
-        new_bill = Bill("ambata", 3, "Roma")
+        new_bill = Bill("ambata", 3, "Roma", 1)
         new_bill.generated_numbers = [6, 11, 12]
         self.assertFalse(is_a_winning_bill(new_bill, self.extraction), "Expected method to return False.")
-        new_bill = Bill("terno", 5, "Napoli")
+        new_bill = Bill("terno", 5, "Napoli", 1)
         new_bill.generated_numbers = [23, 24, 52, 53, 70]
         self.assertFalse(is_a_winning_bill(new_bill, self.extraction), "Expected method to return False.")
-        new_bill = Bill("quaterna", 7, "Torino")
+        new_bill = Bill("quaterna", 7, "Torino", 1)
         new_bill.generated_numbers = [10, 11, 17, 21, 22, 70, 71]
         self.assertFalse(is_a_winning_bill(new_bill, self.extraction), "Expected method to return False.")
-        new_bill = Bill("cinquina", 7, "Firenze")
+        new_bill = Bill("cinquina", 7, "Firenze", 1)
         new_bill.generated_numbers = [8, 10, 11, 12, 20, 60, 61, 72, 82]
         self.assertFalse(is_a_winning_bill(new_bill, self.extraction), "Expected method to return False.")
     

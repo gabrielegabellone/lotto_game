@@ -19,7 +19,8 @@ def start_new_game(bill_number: int) -> None:
         bet_type = Bill.choose_bet_type()
         numbers = Bill.choose_numbers(bet_type)
         city = Bill.choose_city()
-        bills_generated.append(Bill(bet_type, numbers, city))
+        bet_amount = Bill.choose_amount()
+        bills_generated.append(Bill(bet_type, numbers, city, bet_amount))
         print("Bill no. {} successfully generated!\n".format(bill+1))
 
     extraction = Extraction()

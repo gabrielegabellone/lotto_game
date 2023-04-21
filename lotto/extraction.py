@@ -39,6 +39,22 @@ class Extraction:
 
         return lotto_extraction
     
+    def count_guessed_numbers(self, bill: Bill) -> int:
+        """It counts how many numbers have been guessed in an extraction.
+        
+        :param bill: an object of type Bill, represents the bill where the guessed numbers are counted
+        :return: a number representing how many numbers the bill has guessed
+        """
+        numbers_played = bill.generated_numbers
+        extracted_numbers = self.extraction[bill.city]
+        guessed_numbers = 0
+
+        for number in numbers_played:
+            if number in extracted_numbers:
+                guessed_numbers += 1
+
+        return guessed_numbers
+    
     def __str__(self) -> str:
         extraction_date = self.date.strftime("%d/%m/%y, %H:%M")
         extraction_table = Printer.extraction_table(self.extraction)

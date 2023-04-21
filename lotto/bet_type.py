@@ -3,7 +3,7 @@ class BetType:
     
     :param available_bet_type: dict whose keys indicate an available bet-type, while the values indicate the minimum number of numbers that must be generated for that specific type
     """
-    available_bet_type = {"ambata": 2, "ambo": 2, "terno": 3, "quaterna": 4, "cinquina": 5}
+    available_bet_type = {"ambata": 1, "ambo": 2, "terno": 3, "quaterna": 4, "cinquina": 5}
 
     @staticmethod
     def is_a_valid_type(bet_type: str) -> bool:

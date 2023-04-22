@@ -6,8 +6,6 @@ from lotto.city import City
 from lotto.bill import Bill
 
 extraction.random.seed(10)
-City.cities = ["Bari", "Cagliari", "Firenze", "Genova", "Milano", "Napoli", "Palermo", "Roma", "Torino", "Venezia", "Tutte"]
-Bill.min_random_number, Bill.max_random_number = 1, 90
 
 class TestExtraction(unittest.TestCase):
     def setUp(self):
@@ -15,12 +13,14 @@ class TestExtraction(unittest.TestCase):
         self.extraction.extraction = {"Bari": [36, 5, 84, 21, 63], "Cagliari": [32, 67, 10, 42, 63], "Firenze": [6, 78, 47, 18, 54],
                                "Genova": [37, 46, 49, 54, 87], "Milano": [34, 39, 23, 88, 59], "Napoli": [47, 18, 85, 59, 31], 
                                "Palermo": [6, 75, 79, 49, 57], "Roma": [1, 39, 18, 25, 31], "Torino": [69, 41, 47, 86, 31],
-                               "Venezia": [71, 9, 56, 58, 61], "Tutte": [65, 42, 75, 84, 21]}
+                               "Venezia": [71, 9, 56, 58, 61]}
     
     def test_new_extraction(self):
         new_extraction = Extraction.new_extraction()
         numbers_for_cities = 5
-        for city in City.cities:
+        cities = City.cities[:]
+        cities.remove("Tutte") # When performing an extraction, the "Tutte" wheel should not be considered
+        for city in cities:
             self.assertIn(city, new_extraction.keys(), "Expected that the city is contained in the extraction.")
         for extraction in new_extraction.values():
             extraction_withuout_duplicates = set(extraction)
@@ -35,7 +35,7 @@ class TestExtraction(unittest.TestCase):
 | Cagliari |  32    67    10    42    63  |\n| Firenze  |  6     78    47    18    54  |\n|  Genova  |  37    46    49    54    87  |\n\
 |  Milano  |  34    39    23    88    59  |\n|  Napoli  |  47    18    85    59    31  |\n| Palermo  |  6     75    79    49    57  |\n\
 |   Roma   |  1     39    18    25    31  |\n|  Torino  |  69    41    47    86    31  |\n| Venezia  |  71    9     56    58    61  |\n\
-|  Tutte   |  65    42    75    84    21  |\n+----------+------------------------------+"
++----------+------------------------------+"
         self.assertEqual(str(self.extraction), expected)
 
 
@@ -84,3 +84,8 @@ class TestExtraction(unittest.TestCase):
         actual = self.extraction.count_guessed_numbers(new_bill)
         expected = 0
         self.assertEqual(actual, expected, "Expected method to return 0.")
+
+    def test_wheel_tutte(self):
+        actual = {1, 5, 6, 9, 10, 18, 21, 23, 25, 31, 32, 34, 36, 37, 39, 41, 42, 46, 47, 49, 54, 56, 57, 58, 59, 61, 63, 67, 69, 71, 75, 78, 79, 84, 85, 86, 87, 88}
+        expected = self.extraction.wheel_tutte()
+        self.assertEqual(actual, expected, "Expected method to return a set containing the numbers drawn on all wheels.")

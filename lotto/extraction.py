@@ -30,8 +30,10 @@ class Extraction:
         :return: a dict where the key is the city and the value is a list of numbers drawn for that city
         """
         lotto_extraction = {}
+        cities = City.cities[:]
+        cities.remove("Tutte")
 
-        for city in City.cities:
+        for city in cities:
             extracted_numbers = set()
             while len(extracted_numbers) < Extraction.numbers_to_draw_by_city:
                 extracted_numbers.add(random.randint(Bill.min_random_number, Bill.max_random_number))
@@ -46,7 +48,10 @@ class Extraction:
         :return: a number representing how many numbers the bill has guessed
         """
         numbers_played = bill.generated_numbers
-        extracted_numbers = self.extraction[bill.city]
+        if bill.city == "Tutte":
+            extracted_numbers = self.wheel_tutte()
+        else:
+            extracted_numbers = self.extraction[bill.city]
         guessed_numbers = 0
 
         for number in numbers_played:
@@ -54,6 +59,19 @@ class Extraction:
                 guessed_numbers += 1
 
         return guessed_numbers
+    
+    def wheel_tutte(self) -> set:
+        """Takes care of creating the set containing the numbers drawn on all wheels.
+        
+        :return: the set containing the numbers drawn on all wheels
+        """
+        tutte = set()
+
+        for extraction in self.extraction.values():
+            for n in extraction:
+                tutte.add(n)
+                
+        return tutte
     
     def __str__(self) -> str:
         extraction_date = self.date.strftime("%d/%m/%y, %H:%M")
@@ -69,11 +87,14 @@ def is_a_winning_bill(bill: Bill, extraction: Extraction) -> bool:
     :param extraction: an object of type Extraction, represents the reference extraction to carry out the check
     :return: `True` if the bill wins, `False` otherwise
     """
-    extracted_numbers = extraction.extraction[bill.city]
+    if bill.city == "Tutte":
+        extracted_numbers = extraction.wheel_tutte()
+    else:
+        extracted_numbers = extraction.extraction[bill.city]
     numbers_to_guess = BetType.available_bet_type[bill.bet_type]
     guessed_numbers = 0
     i = 0
-    
+
     while not guessed_numbers == numbers_to_guess and i < len(bill.generated_numbers):
         number_to_check = bill.generated_numbers[i]
         if number_to_check in extracted_numbers:

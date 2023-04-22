@@ -4,6 +4,7 @@ from lotto.bill import Bill
 from lotto.bet_type import BetType
 from lotto.extraction import Extraction
 
+
 class CalculateWin:
     """Contains information and manages the calculations of a lottery win.
 
@@ -11,6 +12,7 @@ class CalculateWin:
     :param bet_type_indexes: dict where the key is the type of bet and the value is an integer that represents the reference index to obtain the amount in the values of the variable gross_winnings
     :param max_amount: represents the maximum amount beyond which a tax retention is applied, defaults to 500
     :param tax_retention: represents the percentage of tax retention, defaults to 8
+    :param tutte_wheel_div: represents the number by which the gross amount must be divided if playing on the "Tutte" wheel, defaults to 10
     """
     gross_winnings = {1: [11.23],
                       2: [5.61, 250],
@@ -25,6 +27,7 @@ class CalculateWin:
     bet_type_indexes = {"ambata": 0, "ambo": 1, "terno": 2, "quaterna": 3, "cinquina": 4}
     max_amount = 500
     tax_retention = 8
+    tutte_wheel_div = 10
 
     def __init__(self, bill: Bill, extraction: Extraction):
         """Constructor Method.
@@ -65,6 +68,8 @@ class CalculateWin:
         i = CalculateWin.bet_type_indexes[bet_type]
 
         unit_amount = CalculateWin.gross_winnings[numbers_played][i]
+        if self.bill.city == "Tutte":
+            unit_amount = unit_amount / CalculateWin.tutte_wheel_div
         total_amount = unit_amount * bet_amount * combinations
 
         return total_amount

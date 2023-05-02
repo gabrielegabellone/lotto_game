@@ -1,20 +1,44 @@
 name: lotto test
 
 on:
-  [pull_request]
-
+  push:
+    branches:
+      - main
+  pull_request:
+  
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    env:
+      CI_COMMIT_MESSAGE: Updated Coverage Badge
+      CI_COMMIT_AUTHOR: Continuous Integration
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.9
       uses: actions/setup-python@v3
       with:
         python-version: "3.9"
+        ref: ${{ github.event.pull_request.head.ref }}
+        token: ${{ secrets.WORKFLOW_GIT_ACCESS_TOKEN }}
 
+    - name: Install coverage and genbadge
+      run: |
+        pip install coverage
+        pip install genbadge[all]
+        
     - name: Run unittest
       run: |
-        python -m unittest
+        coverage run -m --source=. unittest
+        coverage xml -o ./reports/coverage/coverage.xml --omit="*/test*"
+        genbadge coverage -o ./reports/coverage-badge.svg
+        
+    - name: Commit to update the badge
+      if: github.event_name == 'push'
+      run: |
+        git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+        git config --global user.email "username@users.noreply.github.com"
+        git pull
+        git add .coverage
+        git add reports/
+        git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
+        git push

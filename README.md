@@ -1,4 +1,4 @@
-# Lotto Game
+# Lotto Game ![Coverage Badge](https://github.com/gabrielegabellone/lotto_game/blob/main/reports/coverage-badge.svg)
 Project divided into 3 learning paths, based on the lottery game:
 
 * In the first learning path the software allows the user to generate lottery bills.  

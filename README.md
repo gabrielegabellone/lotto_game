@@ -9,7 +9,7 @@ The project was carried out with 3 learning paths, in each of which features are
 ## How does Lotto game work?
 Lotto is a game based on betting numbers between 1 and 90 to be drawn on various "ruote" represented by cities.  
 There are different types of bets, depending on how many numbers are predicted, here are those available in the game:
-* ambata: predict the extraction of a number; 
+* ambata: predict the extraction of one number; 
 * ambo: predict the extraction of two numbers;
 * terno: predict the extraction of three numbers; 
 * quaterna: predict the extraction of four numbers;
@@ -23,6 +23,11 @@ Make sure you have Python 3.9 or next.
 Run the lotto_game.py file directly from the command line, no arguments need to be passed:
 ```
 python lotto_game.py
+```
+Or if you use Docker you can directly build and run the image:
+```
+docker build -t lotto-game .
+docker run -ti lotto-game
 ```
 ### Practical example
 Once started, the program initially asks the user to choose how many bills he wants to play and then for each bill he must choose the type of bet, how many numbers he wants to play (the numbers are randomly generated), the city and the amount of money to play:

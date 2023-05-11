@@ -1,5 +1,5 @@
 # Lotto Game 
-![Coverage Badge](https://github.com/gabrielegabellone/lotto_game/blob/main/reports/coverage-badge.svg)  
+![Coverage Badge](./reports/coverage-badge.svg)  
 Project realized at the end of the TomorrowDevs Programming Basics in Python course.  
 The aim is to create an OOP software that simulates the game of the lottery and that is easily extendable as features are added.  
 The project was carried out with 3 learning paths, in each of which features are added:

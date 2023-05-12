@@ -100,12 +100,8 @@ class Bill:
         error_message = f"Error! Enter a valid amount, a valid amount must be between €{Bill.min_amount_allowed} and €{Bill.max_amount_allowed}."
         
         while not is_a_valid_amount:
-            try:
-                entered_amount = int(input(">> Enter amount of money for this bet: "))
-                is_a_valid_amount = Bill.is_a_valid_amount(entered_amount)
-            except ValueError:
-                print(error_message)
-                continue
+            entered_amount = int(input(">> Enter amount of money for this bet: "))
+            is_a_valid_amount = Bill.is_a_valid_amount(entered_amount)
             if not is_a_valid_amount:
                 print(error_message)
         

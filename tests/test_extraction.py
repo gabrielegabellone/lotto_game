@@ -7,6 +7,7 @@ from lotto.bill import Bill
 
 extraction.random.seed(10)
 
+
 class TestExtraction(unittest.TestCase):
     def setUp(self):
         self.extraction = Extraction()
@@ -19,12 +20,12 @@ class TestExtraction(unittest.TestCase):
         new_extraction = Extraction.new_extraction()
         numbers_for_cities = 5
         cities = City.cities[:]
-        cities.remove("Tutte") # When performing an extraction, the "Tutte" wheel should not be considered
+        cities.remove("Tutte")  # When performing an extraction, the "Tutte" wheel should not be considered
         for city in cities:
             self.assertIn(city, new_extraction.keys(), "Expected that the city is contained in the extraction.")
         for extraction in new_extraction.values():
-            extraction_withuout_duplicates = set(extraction)
-            self.assertEqual(len(extraction), len(extraction_withuout_duplicates), "Expected that the list does not contain duplicate elements.")
+            extraction_without_duplicates = set(extraction)
+            self.assertEqual(len(extraction), len(extraction_without_duplicates), "Expected that the list does not contain duplicate elements.")
             self.assertEqual(len(extraction), numbers_for_cities, "The list is expected to consist of 5 elements.")
             for number in extraction:
                 self.assertTrue(number in range(Bill.min_random_number, Bill.max_random_number+1), "Number outside the expected range.")
@@ -37,7 +38,6 @@ class TestExtraction(unittest.TestCase):
 |   Roma   |  1     39    18    25    31  |\n|  Torino  |  69    41    47    86    31  |\n| Venezia  |  71    9     56    58    61  |\n\
 +----------+------------------------------+"
         self.assertEqual(str(self.extraction), expected)
-
 
     def test_is_a_winning_bill_return_true(self):
         new_bill = Bill("ambo", 5, "Roma", 1)
@@ -54,6 +54,9 @@ class TestExtraction(unittest.TestCase):
         self.assertTrue(is_a_winning_bill(new_bill, self.extraction), "Expected method to return True.")
         new_bill = Bill("cinquina", 10, "Firenze", 1)
         new_bill.generated_numbers = [6, 11, 15, 18, 47, 54, 76, 78, 82, 83]
+        self.assertTrue(is_a_winning_bill(new_bill, self.extraction), "Expected method to return True.")
+        new_bill = Bill("ambo", 3, "Tutte", 1)
+        new_bill.generated_numbers = [32, 67]
         self.assertTrue(is_a_winning_bill(new_bill, self.extraction), "Expected method to return True.")
 
     def test_is_a_winning_bill_return_false(self):
@@ -72,7 +75,10 @@ class TestExtraction(unittest.TestCase):
         new_bill = Bill("cinquina", 7, "Firenze", 1)
         new_bill.generated_numbers = [8, 10, 11, 12, 20, 60, 61, 72, 82]
         self.assertFalse(is_a_winning_bill(new_bill, self.extraction), "Expected method to return False.")
-    
+        new_bill = Bill("ambo", 3, "Tutte", 1)
+        new_bill.generated_numbers = [32, 34]
+        self.assertTrue(is_a_winning_bill(new_bill, self.extraction), "Expected method to return False.")
+
     def test_count_guessed_numbers(self):
         new_bill = Bill("ambo", 5, "Bari", 1)
         new_bill.generated_numbers = [5, 36, 62, 70, 80]

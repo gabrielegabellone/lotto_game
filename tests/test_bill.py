@@ -1,5 +1,7 @@
 import unittest
 from unittest.mock import patch
+from io import StringIO
+import sys
 
 from lotto import bill
 from lotto.bill import Bill
@@ -10,28 +12,28 @@ bill.random.seed(10)
 class TestBill(unittest.TestCase):
     @patch("builtins.input")
     def test_choose_bet_type(self, mock_inputs):
-        mock_inputs.side_effect = ["2", "amb", "ambo"]
+        mock_inputs.side_effect = ["2", "amb", "help", "ambo"]
         actual = Bill.choose_bet_type()
         expected = "ambo"
         self.assertEqual(actual, expected, "Expected the method return 'ambo'.")
 
     @patch("builtins.input")
     def test_choose_numbers(self, mock_inputs):
-        mock_inputs.side_effect = ["ambo", "1", "2"]
+        mock_inputs.side_effect = ["ambo", "1", "help", "2"]
         actual = Bill.choose_numbers("ambo")
         expected = 2
         self.assertEqual(actual, expected, "Expected the method return 2.")
 
     @patch("builtins.input")
     def test_choose_city(self, mock_inputs):
-        mock_inputs.side_effect = ["2", "romaa", "roma"]
+        mock_inputs.side_effect = ["2", "help", "romaa", "roma"]
         actual = Bill.choose_city()
         expected = "Roma"
         self.assertEqual(actual, expected, "Expected the method return 'Roma'.")
 
     @patch("builtins.input")
     def test_choose_amount(self, mock_inputs):
-        mock_inputs.side_effect = ["one", "1.5", "1"]
+        mock_inputs.side_effect = ["0", "1"]
         actual = Bill.choose_amount()
         expected = 1
         self.assertEqual(actual, expected, "Expected the method return 1.")

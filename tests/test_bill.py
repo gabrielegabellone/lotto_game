@@ -1,7 +1,5 @@
 import unittest
 from unittest.mock import patch
-from io import StringIO
-import sys
 
 from lotto import bill
 from lotto.bill import Bill
@@ -38,6 +36,12 @@ class TestBill(unittest.TestCase):
         expected = 1
         self.assertEqual(actual, expected, "Expected the method return 1.")
 
+    @patch("builtins.input")
+    def test_choose_amount_value_error(self, mock_inputs):
+        mock_inputs.side_effect = ["one"]
+        with self.assertRaises(ValueError):
+            Bill.choose_amount()
+
     def test_is_a_valid_amount_return_true(self):
         amounts_to_test = [1, 50, 200]
         for a in amounts_to_test:
@@ -60,5 +64,8 @@ class TestBill(unittest.TestCase):
         new_bill = Bill("ambo", 2, "Roma", 1)
         actual = str(new_bill)
         numbers = new_bill.generated_numbers
-        expected = "+------------------------------+\n|         Lotto Ticket         |\n+------------------------------+\n|  CITY       |      Roma      |\n|  BET TYPE   |      ambo      |\n+------------------------------+\n|{:^6}{:^6}                  |\n|                              |\n+------------------------------+\n".format(numbers[0], numbers[1])                  
+        expected = "+------------------------------+\n|         Lotto Ticket         " \
+                   "|\n+------------------------------+\n|  CITY       |      Roma      |\n|  BET TYPE   |      ambo  " \
+                   "    |\n+------------------------------+\n|{:^6}{:^6}                  |\n|                        " \
+                   "      |\n+------------------------------+\n".format(numbers[0], numbers[1])
         self.assertEqual(actual, expected, "Expected a different representation of the bill.")

@@ -72,12 +72,12 @@ class TestCalculateWin(unittest.TestCase):
 
     def test_print_amounts_winning_bill(self):
         actual = str(self.winning_case)
-        expected = "Gross amount: € 12498.0\nNet amount: € 11498.16 (-8% tax retention)"
+        expected = "Gross amount: € 12498.00\nNet amount: € 11498.16 (-8% tax retention)"
         self.assertEqual(actual, expected, "Expected different representation.")
 
     def test_print_amounts_non_winning_bill(self):
         actual = str(self.non_winning_case)
-        expected = "Gross amount: € 0.0\nNet amount: € 0.0 (-8% tax retention)"
+        expected = "Gross amount: € 0.00\nNet amount: € 0.00 (-8% tax retention)"
         self.assertEqual(actual, expected, "Expected different representation.")
 
     def test_cases_not_valid_bill(self):

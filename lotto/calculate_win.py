@@ -8,8 +8,11 @@ from lotto.extraction import Extraction
 class CalculateWin:
     """Contains information and manages the calculations of a lottery win.
 
-    :param gross_winnings: dict which contains the gross amount of Lotto winnings obtained by betting €1 on a single wheel, the key indicates the amount of bills played, and the value a list containing the winning amount for each type of bet 
-    :param bet_type_indexes: dict where the key is the type of bet and the value is an integer that represents the reference index to obtain the amount in the values of the variable gross_winnings
+    :param gross_winnings: dict which contains the gross amount of Lotto winnings obtained by betting €1 on a single
+    wheel, the key indicates the amount of bills played, and the value a list containing the winning amount for each
+    type of bet
+    :param bet_type_indexes: dict where the key is the type of bet and the value is an integer that
+    represents the reference index to obtain the amount in the values of the variable gross_winnings
     :param max_amount: represents the maximum amount beyond which a tax retention is applied, defaults to 500
     :param tax_retention: represents the percentage of tax retention, defaults to 8
     :param tutte_wheel_div: represents the number by which the gross amount must be divided if playing on the "Tutte" wheel, defaults to 10
@@ -59,7 +62,7 @@ class CalculateWin:
     def calculate_gross_amount(self) -> float:
         """Takes care of making calculations for the gross amount of the winnings.
         
-        :return: the gross amount
+        :return: the gross amount rounded to two digits after the decimal point
         """
         combinations = self.combinations
         bet_type = self.bill.bet_type
@@ -70,24 +73,26 @@ class CalculateWin:
         unit_amount = CalculateWin.gross_winnings[numbers_played][i]
         if self.bill.city == "Tutte":
             unit_amount = unit_amount / CalculateWin.tutte_wheel_div
-        total_amount = unit_amount * bet_amount * combinations
+        gross_amount = unit_amount * bet_amount * combinations
 
-        return total_amount
+        return round(gross_amount, 2)
     
     def calculate_net_amount(self) -> float:
         """Takes care of making calculations for the net amount of the winnings.
         Tax retention is deducted only if the gross amount is greater than 500.
 
-        :return: the net amount or the gross amount itself if it is less than or equal to 500
+        :return: the net amount rounded to two digits after the decimal point
         """
         tax_retention = CalculateWin.tax_retention / 100
         gross_amount = self.gross_amount
         
         if gross_amount > CalculateWin.max_amount:
             net_amount = gross_amount - (gross_amount * tax_retention)
-            return net_amount
-        return gross_amount
+        else:
+            net_amount = gross_amount
+
+        return round(net_amount, 2)
     
     def __str__(self) -> str:
-        representation = f"Gross amount: € {self.gross_amount}\nNet amount: € {self.net_amount} (-{CalculateWin.tax_retention}% tax retention)"
+        representation = "Gross amount: € {:.2f}\nNet amount: € {:.2f} (-{}% tax retention)".format(self.gross_amount, self.net_amount, CalculateWin.tax_retention)
         return representation

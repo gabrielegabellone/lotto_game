@@ -1,6 +1,7 @@
 from lotto.input_bill_number import InputBillNumber
 from lotto.bill import Bill
 from lotto.extraction import Extraction, is_a_winning_bill
+from lotto.calculate_win import CalculateWin
 
 
 def start_new_game(bill_number: int) -> None:
@@ -19,7 +20,8 @@ def start_new_game(bill_number: int) -> None:
         bet_type = Bill.choose_bet_type()
         numbers = Bill.choose_numbers(bet_type)
         city = Bill.choose_city()
-        bills_generated.append(Bill(bet_type, numbers, city))
+        bet_amount = Bill.choose_amount()
+        bills_generated.append(Bill(bet_type, numbers, city, bet_amount))
         print("Bill no. {} successfully generated!\n".format(bill+1))
 
     extraction = Extraction()
@@ -28,6 +30,8 @@ def start_new_game(bill_number: int) -> None:
     for b in range(bill_number):
         if is_a_winning_bill(bills_generated[b], extraction):
             print(f"\nBill no. {b+1}: won!\n{bills_generated[b]}")
+            win = CalculateWin(bills_generated[b], extraction)
+            print(win)
         else:
             print(f"\nBill no. {b+1}: not won.")
 
